@@ -60,7 +60,7 @@ exports.disciplines = function (user, history, next) {
   return downloadPages('/users/' + user + '/histories/' + history + '/disciplines', next);
 };
 
-exports.history = function (user, history, id, next) {
+exports.discipline = function (user, history, id, next) {
   'use strict';
 
   return httpRequest({
