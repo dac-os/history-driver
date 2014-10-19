@@ -54,6 +54,33 @@ exports.history = function (user, id, next) {
   });
 };
 
+exports.currentHistory = function (user, next) {
+  'use strict';
+  var currentHistory;
+
+  this.histories(user, function (error, histories) {
+    if (error) {
+      error = new VError(error, 'Error when trying to get the history');
+      return next(error);
+    }
+
+    if (!histories) {
+      return next(false);
+    }
+
+    currentHistory = histories.sort(function (a, b) {
+      return a.year - b.year;
+    }).pop();
+
+    if (!currentHistory) {
+      error = new VError(error, 'Current history not found');
+      return next(error);
+    }
+
+    next(error, currentHistory);
+  }.bind(this));
+};
+
 exports.disciplines = function (user, history, next) {
   'use strict';
 
